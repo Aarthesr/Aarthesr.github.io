@@ -3,7 +3,16 @@
 //     report();
 // })
 var flag = 1;
-var randomnumber;
+var perc,sumu,suml;
+function calperc(num){
+    var sum=0;
+    while(num>0)
+    {
+        sum+=(num%10);
+        num/=10;
+    }
+    return sum;
+}
 function report(){
     if(flag === 1){
         var x = document.forms["myForm"]["uname"].value;
@@ -12,20 +21,31 @@ function report(){
             return false;
         }
         else{
-            var uname = $("#uname").val();
-            var lname = $("#lname").val();
+            sumu=0;
+            suml=0;
+            var uname = $("#uname").val().toLowerCase();
+            var lname = $("#lname").val().toLowerCase();
             if((uname === "Radhakrishnan" && lname === "Sujatha") || (uname === "Sujatha" && lname === "Radhakrishnan"))
             {
-                randomnumber = 100;
+                perc = 100;
             }
             else{
-                randomnumber = Math.floor(Math.random() * 100) + 1;
+                for(var i=0 ; i<uname.length; i++){
+                    sumu += uname.charCodeAt(i);
+                }
+                for(var j=0; j<lname.length; j++){
+                    suml += lname.charCodeAt(j);
+                }
+                perc=(calperc(sumu)+calperc(suml))+40;
+                if(perc >100){
+                    perc = 100;
+                }
             }
         
         $("div.cal-ali").prepend("<h2 class='text loading'>Calculating</h2>");
         setTimeout(function(){
             $("h2").removeClass("loading");
-            $("h2").text(randomnumber+"%");
+            $("h2").text(perc.toFixed(2)+"%");
         },5000);
         flag = 0;
         // $(".shape").addClass("btn btn-lg cal");
