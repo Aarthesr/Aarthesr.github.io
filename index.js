@@ -17,7 +17,11 @@ function report(){
     if(flag === 1){
         var x = document.forms["myForm"]["uname"].value;
         if (x == "" || x == null) {
-            swal("OOPS!!","Fill out the name to find out your love percentage 😉");
+            swal({
+                title : 'OOPS!!',
+                text : 'Fill out the name to find out your love percentage 😉',
+                confirmButtonColor: '#efbbcf'
+            })
             return false;
         }
         else{
